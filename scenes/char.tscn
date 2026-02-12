@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://ce34crf0b5hpd"]
+
+[ext_resource type="Script" uid="uid://dvttn5y244ap6" path="res://scripts/char.gd" id="1_wojmw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n04od"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wojmw"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_pkhve"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1895403948]
+script = ExtResource("1_wojmw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=243464681]
+shape = SubResource("CapsuleShape3D_n04od")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1543543125]
+mesh = SubResource("CapsuleMesh_wojmw")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1977232880]
+replication_config = SubResource("SceneReplicationConfig_pkhve")

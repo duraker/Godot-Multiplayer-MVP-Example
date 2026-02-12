@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://pqckkogmil5v"]
+
+[ext_resource type="Script" uid="uid://dmrdmaw7gtn7f" path="res://client.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://ok38o3roofs6" path="res://server.gd" id="2_0xm2m"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7dm0k"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_ig7tw"]
+sky_material = SubResource("ProceduralSkyMaterial_7dm0k")
+
+[sub_resource type="Environment" id="Environment_0xm2m"]
+background_mode = 2
+sky = SubResource("Sky_ig7tw")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7dm0k"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ig7tw"]
+
+[node name="main" type="Node3D" unique_id=617303366]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1375858320]
+environment = SubResource("Environment_0xm2m")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1256650020]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="ui" type="Control" parent="." unique_id=1727206465]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="client" type="Button" parent="ui" unique_id=9741710]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 23.0
+offset_right = 176.0
+offset_bottom = 71.0
+text = "join"
+script = ExtResource("1_ig7tw")
+
+[node name="server" type="Button" parent="ui" unique_id=161614731]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 83.0
+offset_right = 177.0
+offset_bottom = 142.0
+text = "host"
+script = ExtResource("2_0xm2m")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=2111842131]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=202173225]
+mesh = SubResource("PlaneMesh_7dm0k")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1974523013]
+shape = SubResource("WorldBoundaryShape3D_ig7tw")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=917763532]
+transform = Transform3D(1, 0, 0, 0, 0.7524149, 0.65868944, 0, -0.6586895, 0.7524148, 0, 9.348879, 21.852797)
+fov = 80.0
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1679054475]
+_spawnable_scenes = PackedStringArray("uid://ce34crf0b5hpd")
+spawn_path = NodePath("..")
